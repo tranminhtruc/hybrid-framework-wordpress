@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite [
+	<!ENTITY redirect "entity-value">
+]>
 <suite parallel="false" name="Hahalolo-user">
-  <test name="Run on FIREFOX">
-    <classes>
-      <class name="hahalolo.post.Post_01_New_Edit_Delete"/>
-    </classes>
-  </test> 
+	<parameter name="url" value="https://accounts.hahalolo.com/sign-in/?appId=production_newsfeed_app_id"/>
+<!--	<test name="Run on FIREFOX">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="hahalolo.post.Level_04_Login_Multiple_Browser" />
+		</classes>
+	</test>
+	<test name="Run on CHROME">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="hahalolo.post.Level_04_Login_Multiple_Browser" />
+		</classes>
+	</test>
+	<test name="Run on EDGE CHROMIUM">
+		<parameter name="browser" value="edge_chromium" />
+		<classes>
+			<class name="hahalolo.post.Level_04_Login_Multiple_Browser" />
+		</classes>
+	</test>-->
+	<test name="Run on COC COC">
+		<parameter name="browser" value="coc_coc" />
+		<classes>
+			<class name="hahalolo.post.Level_04_Login_Multiple_Browser" />
+		</classes>
+	</test>
+	<!--<test name="Run on OPERA">
+		<parameter name="browser" value="opera" />
+		<classes>
+			<class name="hahalolo.post.Level_04_Login_Multiple_Browser" />
+		</classes>
+	</test>-->
 </suite>
