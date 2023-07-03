@@ -18,6 +18,46 @@ public class BaseTest {
 	private String projectLocation = System.getProperty("user.dir");
 	private String osName=System.getProperty("os.name");
 
+	protected WebDriver getBrowserDrivers(String browserName, String url) {
+		Browser browser= Browser.valueOf(browserName.toUpperCase());
+		if (browser==browser.FIREFOX) {
+			WebDriverManager.firefoxdriver().setup();
+			driver = new FirefoxDriver();
+		} else if (browser==browser.CHROME) {
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+		} else if (browser==browser.EDGE_CHROMIUM) {
+			WebDriverManager.edgedriver().setup();
+			driver = new EdgeDriver();
+		}else if (browser==browser.OPERA) {
+			//WebDriverManager.operadriver().driverVersion("99.0.4788.77").setup();
+			WebDriverManager.operadriver().setup();
+			driver = new OperaDriver();
+		}else if (browser==browser.FIREFOX_HEADLESS) {
+			WebDriverManager.firefoxdriver().setup();
+			FirefoxOptions firefoxOpt=new FirefoxOptions(); 
+			firefoxOpt.addArguments("headless");
+			firefoxOpt.addArguments("window-size=1920x1080");
+			driver = new FirefoxDriver(firefoxOpt);
+		}else if (browser==browser.CHROME_HEADLESS) {
+			WebDriverManager.chromedriver().setup();
+			ChromeOptions chromeOtp=new ChromeOptions();
+			chromeOtp.addArguments("headless");
+			chromeOtp.addArguments("window-size=1920x1080");
+			driver = new ChromeDriver(chromeOtp);
+		}else if (browser==browser.COC_COC) {
+			WebDriverManager.chromedriver().driverVersion("118.0.148").setup();
+			ChromeOptions options=new ChromeOptions();
+			options.setBinary("C:\\Users\\leduc\\AppData\\Local\\CocCoc\\Browser\\Application\\browser.exe");
+			driver = new ChromeDriver(options);
+		}
+		else {
+			throw new RuntimeException("Please input the browser name!");
+		}
+		driver.get(url);
+		driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+		return driver;
+	}
 	protected WebDriver getBrowserDrivers(String browserName) {
 		Browser browser= Browser.valueOf(browserName.toUpperCase());
 		if (browser==browser.FIREFOX) {
@@ -54,7 +94,6 @@ public class BaseTest {
 			else {
 			throw new RuntimeException("Please input the browser name!");
 		}
-
 		driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 		return driver;
 	}
