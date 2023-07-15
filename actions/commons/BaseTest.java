@@ -15,14 +15,15 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
 	private WebDriver driver;
-	private String projectLocation = System.getProperty("user.dir");
-	private String osName=System.getProperty("os.name");
+	private String projectLocation = GlobalConstants.PROJECT_LOCATION;
+	private String osName= GlobalConstants.OS_NAME;
 
 	protected WebDriver getBrowserDrivers(String browserName, String url) {
 		Browser browser= Browser.valueOf(browserName.toUpperCase());
 		if (browser==browser.FIREFOX) {
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
+		
 		} else if (browser==browser.CHROME) {
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();

@@ -10,21 +10,21 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
+import pageObjects.nopCommerce.AboutUsPageObject;
+import pageObjects.nopCommerce.CustomerInforPageObject;
 import pageObjects.nopCommerce.HomePageObject;
 import pageObjects.nopCommerce.LoginPageObject;
+import pageObjects.nopCommerce.NewsPageObject;
 import pageObjects.nopCommerce.PageGeneratorManager;
 import pageObjects.nopCommerce.RegisterPageObject;
-import pageObjects.nopCommerce.CustomerInforPageObject;
+import pageObjects.nopCommerce.ShoppingCartPageObject;
+import pageObjects.nopCommerce.SiteMapPageObject;
 
 public class Level_06_Login_Page_Generator_Manager extends BaseTest {
 	WebDriver driver;
 	PageGeneratorManager pageGenerator;
 	String projectLocation = System.getProperty("user.dir");
-	HomePageObject homePage;
-	LoginPageObject loginPage;
-	RegisterPageObject registerPage;
-	CustomerInforPageObject customerInfoPage;
-	String emailAddress;
+	
 
 	@Parameters({ "browser", "url" })
 	@BeforeClass
@@ -68,6 +68,49 @@ public class Level_06_Login_Page_Generator_Manager extends BaseTest {
 		Assert.assertEquals(customerInfoPage.getEmailTextboxValue(), emailAddress);
 	}
 
+	@Test
+	public void User_04_Dynamic_Page_Locator() {
+		//Customer Infor->Site Map
+		siteMapPage=(SiteMapPageObject)customerInfoPage.openFooterPageByName(driver, "Sitemap");
+		newsPage= (NewsPageObject)siteMapPage.openFooterPageByName(driver, "News");
+		shoppingCartPage=(ShoppingCartPageObject)newsPage.openFooterPageByName(driver, "Shopping cart");
+		aboutUsPage=(AboutUsPageObject)shoppingCartPage.openFooterPageByName(driver, "About us");
+		shoppingCartPage=(ShoppingCartPageObject)aboutUsPage.openFooterPageByName(driver, "Shopping cart");
+		siteMapPage=(SiteMapPageObject)shoppingCartPage.openFooterPageByName(driver, "Sitemap");
+		aboutUsPage=(AboutUsPageObject)siteMapPage.openFooterPageByName(driver, "About us");
+		newsPage=(NewsPageObject)aboutUsPage.openFooterPageByName(driver, "News");
+		siteMapPage=(SiteMapPageObject)newsPage.openFooterPageByName(driver, "Sitemap");
+	}
+	@Test
+	public void User_05_Dynamic_Page_Locator() {
+		//Customer Infor->Site Map
+		customerInfoPage.openFooterPageName(driver, "Sitemap");
+		siteMapPage=PageGeneratorManager.getSiteMapPageObject(driver);
+
+		siteMapPage.openFooterPageName(driver, "News");
+		newsPage= PageGeneratorManager.getNewsPageObject(driver);
+		
+		newsPage.openFooterPageName(driver, "Shopping cart");
+		shoppingCartPage=PageGeneratorManager.getShoppingCartPageObject(driver);
+		
+		shoppingCartPage.openFooterPageName(driver, "About us");
+		aboutUsPage=PageGeneratorManager.getAboutUsPage(driver);
+		
+		aboutUsPage.openFooterPageName(driver, "Shopping cart");
+		shoppingCartPage=PageGeneratorManager.getShoppingCartPageObject(driver);
+		
+		shoppingCartPage.openFooterPageName(driver, "Sitemap");
+		siteMapPage=PageGeneratorManager.getSiteMapPageObject(driver);
+		
+		siteMapPage.openFooterPageName(driver, "About us");
+		aboutUsPage=PageGeneratorManager.getAboutUsPage(driver);
+		
+		aboutUsPage.openFooterPageName(driver, "News");
+		newsPage=PageGeneratorManager.getNewsPageObject(driver);
+		
+		newsPage.openFooterPageName(driver, "Sitemap");
+		siteMapPage=PageGeneratorManager.getSiteMapPageObject(driver);
+	}
 	public int getRanDomNumber() {
 		Random rand = new Random();
 		return rand.nextInt(99999);
@@ -76,5 +119,14 @@ public class Level_06_Login_Page_Generator_Manager extends BaseTest {
 	@AfterClass
 	public void afterClass() {
 	}
+	HomePageObject homePage;
+	NewsPageObject newsPage;
+	LoginPageObject loginPage;
+	SiteMapPageObject siteMapPage;
+	RegisterPageObject registerPage;
+	CustomerInforPageObject customerInfoPage;
+	AboutUsPageObject aboutUsPage;
+	ShoppingCartPageObject shoppingCartPage;
+	String emailAddress;
 
 }

@@ -24,6 +24,8 @@ public class CustomerInforPageObject extends BasePage {
 		waitForElementVisible(driver, CustomerInforPageUI.EMAIL_TEXTBOX);
 		return getElementAttributeByValue(driver,CustomerInforPageUI.EMAIL_TEXTBOX);
 	}
+
+	
 	
 
 }

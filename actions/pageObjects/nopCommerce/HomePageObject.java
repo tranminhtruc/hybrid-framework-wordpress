@@ -28,12 +28,12 @@ public class HomePageObject extends BasePage{
 	public boolean isMyAccountLinkDisplayed() {
 		waitForElementVisible(driver, HomePageUI.MY_ACCOUNT_LINK);
 		return isElementDisplay(driver, HomePageUI.MY_ACCOUNT_LINK);
-		
 	}
-
 	public CustomerInforPageObject clickToMyAccountLink() {
 		waitForElementClickble(driver, HomePageUI.MY_ACCOUNT_LINK);
 		clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK);
-		return pageGenerator.getCustomerPage(driver);
+		return PageGeneratorManager.getCustomerPage(driver);
 	}
+
+
 }
